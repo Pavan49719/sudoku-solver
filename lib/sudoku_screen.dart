@@ -14,13 +14,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController url = TextEditingController();
   String? result;
-  bool tapped = false;
+  bool loading = false;
   List solved = [];
   List unsolved = [];
 
   Future<void> solveSudoku() async {
     setState(() {
-      tapped = true;
+      loading = true;
+      result = null;
+      solved = [];
+      unsolved = [];
+      solvednumlist = [];
+      unsolvednumlist = [];
     });
     print("URL: ${url.text}");
     var request = http.Request(
@@ -45,9 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
       print("UNSOLVED: ${unsolved.runtimeType}\n$unsolved");
       tablecreator();
       setState(() {
-        tapped = false;
+        loading = false;
       });
     } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Invalid URL')));
+      setState(() {
+        loading = false;
+      });
       print(response.reasonPhrase);
     }
   }
@@ -134,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 )
-              : tapped == true
+              : loading == true
                   ? CircularProgressIndicator()
                   : Container(),
         ]),
