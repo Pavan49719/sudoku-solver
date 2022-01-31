@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Container(
                   width: 250,
                   child: TextFormField(

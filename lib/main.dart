@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/sudoku_screen.dart';
+import 'package:sudoku/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Sudoku'),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
