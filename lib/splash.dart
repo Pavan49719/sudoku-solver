@@ -1,57 +1,58 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:sudoku/sudoku_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+class Splash extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<Splash> createState() => _SplashState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => MyHomePage(
-                    title: "Sudoku Solver",
-                  )));
-    });
+    Timer(
+        const Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyHomePage(
+                      title: 'Sudoku',
+                    ))));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            decoration: BoxDecoration(color: Colors.white),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Image.asset('images/pic1.jpeg'),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Image.asset('images/pic3.jpeg'),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Image.asset('images/pic2.jpeg'),
-                ),
-              ],
+      body: Container(
+        color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              "images/splash.jpeg",
+              height: 300,
+              width: 300,
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 32,
+            ),
+            Image.asset(
+              "images/TRF.jpeg",
+              height: 128,
+              width: 128,
+            ),
+            Image.asset(
+              "images/robodroid.jpeg",
+              height: 128,
+              width: 256,
+            ),
+          ],
+        ),
       ),
     );
   }
