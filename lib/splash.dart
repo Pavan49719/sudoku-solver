@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:sudoku/sudoku_screen.dart';
 
 class Splash extends StatefulWidget {
@@ -42,12 +41,12 @@ class _SplashState extends State<Splash> {
               height: 32,
             ),
             Image.asset(
-              "images/TRF.jpeg",
-              height: 128,
-              width: 128,
+              "images/trf.png",
+              height: 192,
+              width: 192,
             ),
             Image.asset(
-              "images/robodroid.jpeg",
+              "images/robodroid.jpg",
               height: 128,
               width: 256,
             ),
