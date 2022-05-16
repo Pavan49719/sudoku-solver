@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
@@ -17,6 +19,30 @@ class _MyHomePageState extends State<MyHomePage> {
   bool loading = false;
   List solved = [];
   List unsolved = [];
+
+
+_getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+        source: ImageSource.camera,
+        maxWidth: 1800,
+        maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+        File imageFile = File(pickedFile.path);
+    }
+}
+
+
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+        source: ImageSource.gallery,
+        maxWidth: 1800,
+        maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+        File imageFile = File(pickedFile.path);
+    }
+}
 
   Future<void> solveSudoku() async {
     setState(() {
@@ -101,6 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(onPressed: solveSudoku, child: Icon(Icons.search))
             ],
           ),
+            ElevatedButton(onPressed: _getFromCamera, child: Text('From Camera')),
+            ElevatedButton(onPressed: _getFromGallery, child: Text('From Gallery')),
           result != null
               ? Column(
                   children: [
