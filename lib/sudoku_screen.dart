@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_storage/firebase_storage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -14,35 +15,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController url = TextEditingController();
+  File? imageFile;
+  TextEditingController? url = TextEditingController();
   String? result;
   bool loading = false;
   List solved = [];
   List unsolved = [];
+  var location;
 
-
-_getFromCamera() async {
+  _getFromCamera() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
-        source: ImageSource.camera,
-        maxWidth: 1800,
-        maxHeight: 1800,
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
     );
     if (pickedFile != null) {
-        File imageFile = File(pickedFile.path);
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
     }
-}
-
+  }
 
   _getFromGallery() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
-        source: ImageSource.gallery,
-        maxWidth: 1800,
-        maxHeight: 1800,
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
     );
     if (pickedFile != null) {
-        File imageFile = File(pickedFile.path);
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
     }
-}
+  }
+
+  FirebaseStorage _storage = FirebaseStorage.instance;
+
+  Future<String> uploadPic() async {
+    //Create a reference to the location you want to upload to in firebase
+    Reference reference = _storage.ref().child("images/");
+
+    UploadTask uploadTask = reference.putFile(imageFile!);
+
+    location = await (await uploadTask).ref.getDownloadURL();
+    print("LOCATION: $location");
+    solveSudoku();
+    return location;
+  }
 
   Future<void> solveSudoku() async {
     setState(() {
@@ -53,11 +72,12 @@ _getFromCamera() async {
       solvednumlist = [];
       unsolvednumlist = [];
     });
-    print("URL: ${url.text}");
+    print("URL: ${url!.text}");
+    String temp = url?.text ?? location;
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://trf-sudokusolver.herokuapp.com/sudokusolver/${url.text}'));
+            'https://trf-sudokusolver.herokuapp.com/sudokusolver/${temp}'));
 
     http.StreamedResponse response = await request.send();
 
@@ -101,6 +121,16 @@ _getFromCamera() async {
   }
 
   @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Firebase.initializeApp().whenComplete(() {
+  //     print("completed");
+  //     setState(() {});
+  //   });
+  // }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -127,8 +157,22 @@ _getFromCamera() async {
               ElevatedButton(onPressed: solveSudoku, child: Icon(Icons.search))
             ],
           ),
-            ElevatedButton(onPressed: _getFromCamera, child: Text('From Camera')),
-            ElevatedButton(onPressed: _getFromGallery, child: Text('From Gallery')),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: _getFromCamera, child: Text('From Camera')),
+              ElevatedButton(
+                  onPressed: _getFromGallery, child: Text('From Gallery')),
+              imageFile != null
+                  ? ElevatedButton(
+                      onPressed: uploadPic,
+                      child: Text(
+                        'Upload',
+                      ))
+                  : Container(),
+            ],
+          ),
           result != null
               ? Column(
                   children: [

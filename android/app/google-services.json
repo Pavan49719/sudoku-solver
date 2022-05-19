@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1079250291767",
+    "project_id": "sudoku-solver-470a0",
+    "storage_bucket": "sudoku-solver-470a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079250291767:android:e9a3d26812c1af23ca03b2",
+        "android_client_info": {
+          "package_name": "com.example.sudoku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079250291767-dsp12lae5hcv1767gl1d8ntu33a9j2v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB3cbtgnxrfxEYaCRPeHv3CC_8qD8Xd6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079250291767-dsp12lae5hcv1767gl1d8ntu33a9j2v8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079250291767:android:33d056992af4741fca03b2",
+        "android_client_info": {
+          "package_name": "com.example.sudoku_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079250291767-dsp12lae5hcv1767gl1d8ntu33a9j2v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB3cbtgnxrfxEYaCRPeHv3CC_8qD8Xd6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079250291767-dsp12lae5hcv1767gl1d8ntu33a9j2v8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
