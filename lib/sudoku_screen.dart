@@ -73,24 +73,24 @@ class _MyHomePageState extends State<MyHomePage> {
       unsolvednumlist = [];
     });
     print("URL: ${url!.text}");
-    String temp = url?.text ?? location;
+    // String temp = url?.text ?? location;
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://trf-sudokusolver.herokuapp.com/sudokusolver/${temp}'));
+            'https://trf-sudoku-solver.herokuapp.com/sudokusolver/${url?.text}'));
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
       var temp = await response.stream.bytesToString();
-      // print("TEMP: $temp");
+      print("TEMP: ${temp.runtimeType}");
       setState(() {
         result = temp;
       });
       Map valueMap = json.decode(result!);
       setState(() {
-        solved = json.decode(valueMap['solved']);
-        unsolved = json.decode(valueMap['unsolved']);
+        solved = json.decode(valueMap['solved'].toString());
+        unsolved = json.decode(valueMap['unsolved'].toString());
       });
       print("SOLVED: ${solved.runtimeType}\n$solved");
       print("UNSOLVED: ${unsolved.runtimeType}\n$unsolved");
